@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: StreamBuilder(
         stream: _authMethods.onAuthStateChanged,
-        builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+        builder: (context, AsyncSnapshot<User> snapshot) {
           if (snapshot.hasData) {
             return HomePage();
           } else {

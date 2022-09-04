@@ -27,9 +27,9 @@ class CartPageBloc with ChangeNotifier {
   int totalPrice = 0;
 
   FirebaseHelper mFirebaseHelper = FirebaseHelper();
-  DatabaseSql databaseSql;
+  late DatabaseSql databaseSql;
 
-  BuildContext context;
+  late BuildContext context;
 
   getDatabaseValue() async{
     databaseSql = DatabaseSql();
@@ -37,7 +37,7 @@ class CartPageBloc with ChangeNotifier {
     foodList= await databaseSql.getData();
     //calculating total price
     foodList.forEach((food) {
-      int foodItemPrice = int.parse(food.price);
+      int foodItemPrice = int.parse(food.price!);
       totalPrice += foodItemPrice;
     });
     notifyListeners();

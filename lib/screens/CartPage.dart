@@ -40,7 +40,7 @@ class CartPageContent extends StatefulWidget {
 
 class _CartPageContentState extends State<CartPageContent> {
   
-  CartPageBloc cartPageBloc;
+  late CartPageBloc cartPageBloc;
   TextEditingController nametextcontroller = TextEditingController();
   TextEditingController addresstextcontroller = TextEditingController();
 

@@ -48,7 +48,7 @@ class HomePageContent extends StatefulWidget {
 
 class _HomePageContentState extends State<HomePageContent> {
 
-  HomePageBloc homePageBloc;
+  late HomePageBloc homePageBloc;
 
   @override
   void initState() {
@@ -116,7 +116,7 @@ class _HomePageContentState extends State<HomePageContent> {
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         child: Stack(
           children: <Widget>[
-            Image.network(item.image, fit: BoxFit.cover, width: 1000.0),
+            Image.network(item.image!, fit: BoxFit.cover, width: 1000.0),
             Positioned(
               bottom: 0.0,
               left: 0.0,

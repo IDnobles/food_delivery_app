@@ -33,14 +33,14 @@ class _MyOrderPageState extends State<MyOrderPage> {
   List<Request> requestList = [];
   AuthMethods authMethods = AuthMethods();
   FirebaseHelper mFirebaseHelper = FirebaseHelper();
-  FirebaseUser currentUser;
+  User? fUser;
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-      currentUser = await authMethods.getCurrentUser();
-      mFirebaseHelper.fetchOrders(currentUser).then((List<Request> list) {
+      fUser = await authMethods.getCurrentUser();
+      mFirebaseHelper.fetchOrders(fUser!).then((List<Request> list) {
         // there are not much sync operation in myorder page, i.e didn;t made any bloc file :)
         setState(() {
           requestList = list;

@@ -39,7 +39,7 @@ class RegisterPageContent extends StatefulWidget {
 
 class _RegisterPageContentState extends State<RegisterPageContent> {
 
-  RegisterPageBloc registerPageBloc;
+  RegisterPageBloc? registerPageBloc;
 
   TextEditingController textNameController=TextEditingController();
   TextEditingController textPasswordController=TextEditingController();
@@ -70,7 +70,7 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
         SizedBox(height:20.0),
         TextFormField(
           validator: (email) {
-            return registerPageBloc.validateEmail(email);
+            return registerPageBloc!.validateEmail(email!);
           },
           controller: textNameController,
           decoration: InputDecoration(
@@ -84,7 +84,7 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
           ],
           keyboardType: TextInputType.number,
           validator: (phone) {
-            return registerPageBloc.validatePhone(phone);
+            return registerPageBloc!.validatePhone(phone!);
           },
           controller: textPhoneController,
           decoration: InputDecoration(
@@ -93,7 +93,7 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
         ),
         TextFormField(
           validator: (password) {
-            return registerPageBloc.validatePassword(password);
+            return registerPageBloc!.validatePassword(password!);
           },
           controller: textPasswordController,
           decoration: InputDecoration(
@@ -107,10 +107,10 @@ class _RegisterPageContentState extends State<RegisterPageContent> {
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0),)
             ),
           ),
-          onPressed: () => registerPageBloc.validateFormAndRegister(_formKey, textNameController.text, textPasswordController.text, textPhoneController.text).then((_) => gotoHomePage()),
+          onPressed: () => registerPageBloc?.validateFormAndRegister(_formKey, textNameController.text, textPasswordController.text, textPhoneController.text).then((_) => gotoHomePage()),
           child: Text("Register",style:TextStyle(color:UniversalVariables.whiteColor,)),
         ),
-        registerPageBloc.isRegisterPressed
+        registerPageBloc!.isRegisterPressed
             ? Center(
             child: CircularProgressIndicator())
             : Container(),

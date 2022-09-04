@@ -37,10 +37,10 @@ class _CartItemsState extends State<CartItems> {
         padding: EdgeInsets.symmetric(horizontal: 0.0,vertical: 10.0),
         child:ListTile(
           leading: Container(child: ClipRRect(borderRadius: BorderRadius.circular(5.0),
-          child: Image.network(widget.fooddata.image,fit: BoxFit.cover,)),height: 80.0,width: 80.0,),
-          title: Text(widget.fooddata.name,style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.bold,color: Colors.black),),
+          child: Image.network(widget.fooddata.image!,fit: BoxFit.cover,)),height: 80.0,width: 80.0,),
+          title: Text(widget.fooddata.name!,style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.bold,color: Colors.black),),
           subtitle: Text("${widget.fooddata.price}\$",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black54),),
-          trailing: IconButton(icon:  Icon(Icons.delete,size: 20.0,), onPressed:()=>deleteFoodFromCart(widget.fooddata.keys) ,),
+          trailing: IconButton(icon:  Icon(Icons.delete,size: 20.0,), onPressed:()=>deleteFoodFromCart(widget.fooddata.keys!) ,),
         )
       ),
     );

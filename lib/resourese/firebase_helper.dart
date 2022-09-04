@@ -15,12 +15,16 @@
  */
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:food_delivery_app/models/Category.dart';
 import 'package:food_delivery_app/models/Food.dart';
 import 'package:food_delivery_app/models/Request.dart';
 import 'package:food_delivery_app/resourese/auth_methods.dart';
 import 'package:food_delivery_app/resourese/databaseSQL.dart';
+
+import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform, kIsWeb;
+import '../firebase_options.dart';
 
 class FirebaseHelper{
 
@@ -29,12 +33,34 @@ class FirebaseHelper{
 
   static final DatabaseReference _ordersReference = _database.reference().child("Orders");
   static final DatabaseReference _categoryReference = _database.reference().child("Category");
-  static final DatabaseReference _foodReference = _database.reference().child("Foods");
+  static late final DatabaseReference _foodReference = _database.reference().child("Foods");
+
+  static const USE_DATABASE_EMULATOR = true;
+// The port we've set the Firebase Database emulator to run on via the
+// `firebase.json` configuration file.
+  static const emulatorPort = 9000;
+// Android device emulators consider localhost of the host machine as 10.0.2.2
+// so let's use that if running on Android.
+  final emulatorHost =
+  (!kIsWeb && defaultTargetPlatform == TargetPlatform.android)
+      ? '10.0.2.2'
+      : 'localhost';
+
 
   // fetch all foods list from food reference
   Future<List<Food>> fetchAllFood() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     List<Food>foodList = <Food>[];
     DatabaseReference foodReference= _database.reference().child("Foods");
+
+    //late DatabaseReference foodReference = _database.ref('Foods');
+    _database.setLoggingEnabled(false);
+    _database.setPersistenceEnabled(true);
+    _database.setPersistenceCacheSizeBytes(10000000);
+    await _foodReference.keepSynced(true);
+
     await foodReference.once().then((DataSnapshot snap) {
         var keys = snap.value.keys;
         var data = snap.value;
@@ -106,7 +132,7 @@ class FirebaseHelper{
    return categoryList;
  }
 
-  Future<List<Request>> fetchOrders(FirebaseUser currentUser)async{
+  Future<List<Request>> fetchOrders(User currentUser)async{
     List<Request> requestList=[];
     DatabaseReference foodReference = _ordersReference.child(currentUser.uid);
 
@@ -133,7 +159,7 @@ class FirebaseHelper{
 
   Future<void> addOrder(String totalPrice, List<Food> orderedFoodList, String name, String address) async {
     // getter user details
-    FirebaseUser user = await AuthMethods().getCurrentUser();
+    User user = await AuthMethods().getCurrentUser();
     String uidtxt = user.uid;
     String statustxt = "0";
     String totaltxt = totalPrice.toString();

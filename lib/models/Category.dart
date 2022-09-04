@@ -20,8 +20,8 @@ class Category{
   String keys;
 
   Category({
-    this.image,
-    this.name,
-    this.keys
+    required this.image,
+    required this.name,
+    required this.keys
   });
 }

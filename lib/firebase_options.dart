@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '306130832127',
     projectId: 'larry-food-app',
     authDomain: 'larry-food-app.firebaseapp.com',
+    databaseURL: 'https://larry-food-app-default-rtdb.firebaseio.com',
     storageBucket: 'larry-food-app.appspot.com',
   );
 
@@ -68,6 +69,7 @@ class DefaultFirebaseOptions {
     appId: '1:306130832127:ios:fa77a4292c32ac48541aca',
     messagingSenderId: '306130832127',
     projectId: 'larry-food-app',
+    databaseURL: 'https://larry-food-app-default-rtdb.firebaseio.com',
     storageBucket: 'larry-food-app.appspot.com',
     iosClientId: '306130832127-8iou5f8mt77n56vn5b7lnjeebgvjcl6q.apps.googleusercontent.com',
     iosBundleId: 'com.example.foodDeliveryApp',

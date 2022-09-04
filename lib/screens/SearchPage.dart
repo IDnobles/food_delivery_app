@@ -40,7 +40,7 @@ class SearchPageContent extends StatefulWidget {
 
 class _SearchPageContentState extends State<SearchPageContent> {
   final TextEditingController searchCtrl = TextEditingController();
-  SearchPageBloc searchPageBloc;
+  late SearchPageBloc searchPageBloc;
 
  @override
   void initState() {

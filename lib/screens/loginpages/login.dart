@@ -44,7 +44,7 @@ class _LoginPageContentState extends State<LoginPageContent> {
 
   final _formKey = GlobalKey<FormState>();
 
-  LoginPageBloc loginPageBloc;
+  late LoginPageBloc loginPageBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _LoginPageContentState extends State<LoginPageContent> {
         SizedBox(height:20.0),
         TextFormField(
             validator: (email) {
-              return loginPageBloc.validateEmail(email);
+              return loginPageBloc.validateEmail(email!);
             },
             controller: textNameController,
             decoration: InputDecoration(
@@ -92,7 +92,7 @@ class _LoginPageContentState extends State<LoginPageContent> {
           ),
         TextFormField(
           validator: (password) {
-             return loginPageBloc.validateEmail(password);
+             return loginPageBloc.validateEmail(password!);
           },
           controller: textPasswordController,
           decoration: InputDecoration(

@@ -49,10 +49,10 @@ class HomePageBloc with ChangeNotifier {
   Category recentlyCategory3 = Category(image:"https://static.toiimg.com/thumb/54659021.cms?width=1200&height=1200",name: "french fries",keys: "07");
   Category recentlyCategory4 = Category(image:"https://i.pinimg.com/originals/3b/b4/ea/3bb4ea708b73c60a11ccd4a7bdbb1524.jpg",name: "kfc chicken",keys: "09");
 
-  FirebaseUser mFirebaseUser;
+  User? mFirebaseUser;
 
   getCurrentUser() {
-    mAuthMethods.getCurrentUser().then((FirebaseUser currentUser)  {
+    mAuthMethods.getCurrentUser().then((User currentUser)  {
       mFirebaseUser = currentUser;
       notifyListeners();
     });

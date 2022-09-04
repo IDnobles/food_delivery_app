@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 
 class FoodDetailPage extends StatelessWidget {
   final Food food;
-  FoodDetailPage({this.food});
+  FoodDetailPage({required this.food});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -45,7 +45,7 @@ class FoodDetailPageContent extends StatefulWidget {
 
 class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
   
-  FoodDetailPageBloc foodDetailPageBloc;
+  FoodDetailPageBloc? foodDetailPageBloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   // sample discription for food details
@@ -56,8 +56,8 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-      foodDetailPageBloc.getPopularFoodList();
-      foodDetailPageBloc.generateRandomRating();
+      foodDetailPageBloc!.getPopularFoodList();
+      foodDetailPageBloc!.generateRandomRating();
     });
   
   }
@@ -65,7 +65,7 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
   @override
   Widget build(BuildContext context) {
     foodDetailPageBloc = Provider.of<FoodDetailPageBloc>(context);
-    foodDetailPageBloc.context = context;
+    foodDetailPageBloc!.context = context;
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
@@ -98,7 +98,7 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Material(color:Colors.transparent, 
-                              child: Text(foodDetailPageBloc.rating + " ★", style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold,color: UniversalVariables.whiteColor),)
+                              child: Text(foodDetailPageBloc!.rating + " ★", style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold,color: UniversalVariables.whiteColor),)
                             ),
                     ),
                   ],),
@@ -110,7 +110,7 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
                       bottomLeft: Radius.circular(0.0),
                       bottomRight: Radius.circular(80.0)
                   ),
-                  image:DecorationImage(image: NetworkImage(widget.fooddata.image),fit: BoxFit.cover),
+                  image:DecorationImage(image: NetworkImage(widget.fooddata.image!),fit: BoxFit.cover),
                 ),
               )),
               createdetails(),
@@ -130,14 +130,14 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(height: 10.0,),
-          Text(widget.fooddata.name,style: TextStyle(fontSize: 27.0,fontWeight: FontWeight.bold,color: UniversalVariables.orangeColor),),
+          Text(widget.fooddata.name!,style: TextStyle(fontSize: 27.0,fontWeight: FontWeight.bold,color: UniversalVariables.orangeColor),),
           SizedBox(height: 20.0,),
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left:18.0,top: 10.0,bottom: 10.0),
-                child: Text("₹" + widget.fooddata.price,style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold,color:UniversalVariables.orangeColor),),
+                child: Text("₹" + widget.fooddata.price!,style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold,color:UniversalVariables.orangeColor),),
               ),
               SizedBox(width: 10.0,),
               // widget of counter
@@ -150,11 +150,11 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
                 child: Row(
                   children: <Widget>[
                     // check and show decreament button
-                    foodDetailPageBloc.mItemCount != 1 ? 
-                    new  IconButton(icon: new Icon(Icons.remove,color: UniversalVariables.whiteColor,size: 30.0,), onPressed: ()=> foodDetailPageBloc.decreamentItems(),)
+                    foodDetailPageBloc?.mItemCount != 1 ?
+                    new  IconButton(icon: new Icon(Icons.remove,color: UniversalVariables.whiteColor,size: 30.0,), onPressed: ()=> foodDetailPageBloc?.decreamentItems(),)
                     :new  IconButton(icon: new Icon(Icons.remove,color: Colors.white,size: 30.0,),onPressed: ()=>null),
-                    new Text(foodDetailPageBloc.mItemCount.toString(),style: TextStyle(color:  UniversalVariables.whiteColor,fontSize: 20.0,fontWeight: FontWeight.bold),),
-                    new IconButton(icon: new Icon(Icons.add,color:  UniversalVariables.whiteColor,size: 30.0,),onPressed: ()=> foodDetailPageBloc.increamentItems())
+                    new Text(foodDetailPageBloc!.mItemCount.toString(),style: TextStyle(color:  UniversalVariables.whiteColor,fontSize: 20.0,fontWeight: FontWeight.bold),),
+                    new IconButton(icon: new Icon(Icons.add,color:  UniversalVariables.whiteColor,size: 30.0,),onPressed: ()=> foodDetailPageBloc?.increamentItems())
                   ],
                 ),
               ),
@@ -193,7 +193,7 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0),)
                 ),
               ),
-              onPressed: () => foodDetailPageBloc.addToCart(widget.fooddata),
+              onPressed: () => foodDetailPageBloc?.addToCart(widget.fooddata),
               child: Text("Add To Cart",style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.w500,color: UniversalVariables.whiteColor),),
             ),
           ),
@@ -216,13 +216,13 @@ class _FoodDetailPageContentState extends State<FoodDetailPageContent> {
           SizedBox(height: 10.0,),
           Container(
               height: 200.0,
-              child:foodDetailPageBloc.foodList.length==-1 ? Center(child: Center(child: CircularProgressIndicator()))
+              child:foodDetailPageBloc?.foodList.length==-1 ? Center(child: Center(child: CircularProgressIndicator()))
               : ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: foodDetailPageBloc.foodList.length,
+              itemCount: foodDetailPageBloc?.foodList.length,
               itemBuilder: (_,index){
                 return FoodTitleWidget(
-                  foodDetailPageBloc.foodList[index],
+                  foodDetailPageBloc!.foodList[index],
                  );
                }
              ),

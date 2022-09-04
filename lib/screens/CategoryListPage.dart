@@ -108,10 +108,10 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  itemCount: snapshot.data.length,
+                  itemCount: snapshot.data?.length,
                   itemBuilder: (_,index){
                      return FoodTitleWidget(
-                     snapshot.data[index],
+                     snapshot.data![index],
                   );
                 }
                 );

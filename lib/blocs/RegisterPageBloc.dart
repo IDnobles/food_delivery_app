@@ -24,21 +24,21 @@ class RegisterPageBloc with ChangeNotifier {
 
   bool isRegisterPressed = false;
 
-  String validateEmail(String email) {
+  String? validateEmail(String email) {
     if (email.isEmpty && EmailValidator.validate(email)) {
       return 'Please enter valid email';
     }
     return null;
   } 
 
-  String validatePassword(String password) {
+  String? validatePassword(String password) {
     if (password.isEmpty && password.length<6) {
       return 'Password should atleast contain 6 character';
     }
     return null;
   } 
 
-  String validatePhone(String phone) {
+  String? validatePhone(String phone) {
     if (phone.isEmpty && phone.length < 6) {
       return 'Invalid PhoneNo';
     }
@@ -48,7 +48,7 @@ class RegisterPageBloc with ChangeNotifier {
   Future<void> validateFormAndRegister(GlobalKey<FormState> formKey, String userName, String password, String phone) async {
       isRegisterPressed = true;
       notifyListeners();
-      if(formKey.currentState.validate()){
+      if(formKey.currentState!.validate()){
           await mAuthMethods.handleSignUp(phone, userName, password);
           isRegisterPressed = false;
           notifyListeners();

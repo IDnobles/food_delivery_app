@@ -16,23 +16,23 @@
 
 
 class Food{
-  String description;
-  String discount;
-  String image;
-  String menuId;
-  String name;
-  String price;
-  String keys;
+  String? description;
+  String? discount;
+  String? image;
+  String? menuId;
+  String? name;
+  String? price;
+  String? keys;
 
 
   Food({
-    this.description,
-    this.discount,
-    this.image,
-    this.menuId,
-    this.name,
-    this.price,
-    this.keys
+    required this.description,
+    required this.discount,
+    required this.image,
+    required this.menuId,
+    required this.name,
+    required this.price,
+    required this.keys
   });
 
   Map toMap(Food food) {

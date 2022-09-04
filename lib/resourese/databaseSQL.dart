@@ -21,8 +21,8 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseSql {
 
-  Database database;
-  int count;
+  late Database database;
+  late int count;
 
   Future<void> openDatabaseSql() async {
     // Get a location using getDatabasesPath
@@ -54,7 +54,7 @@ class DatabaseSql {
   Future<int> countData() async {
     count = Sqflite
         .firstIntValue(
-        await database.rawQuery('SELECT COUNT(*) FROM cartTable'));
+        await database.rawQuery('SELECT COUNT(*) FROM cartTable'))!;
     assert(count == 2);
     return count;
   }

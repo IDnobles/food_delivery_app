@@ -39,7 +39,7 @@ class FoodDetailPageBloc with ChangeNotifier {
   // no of items add to list
   int mItemCount = 1;
 
-  BuildContext context;
+  BuildContext? context;
 
   addToCart(Food food) async{
       DatabaseSql databaseSql=DatabaseSql();
@@ -56,7 +56,7 @@ class FoodDetailPageBloc with ChangeNotifier {
         ),
       );
       mItemCount = 1;
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context!).showSnackBar(snackBar);
       notifyListeners();
       
   }

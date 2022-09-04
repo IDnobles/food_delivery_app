@@ -32,7 +32,7 @@ class FoodTitleWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Hero(tag: "avatar_${fooddata.keys.toString()}",
-                child: Image.network(fooddata.image,fit: BoxFit.cover,)),
+                child: Image.network(fooddata.image!,fit: BoxFit.cover,)),
               ),
             ),
             SizedBox(width: 10.0,),

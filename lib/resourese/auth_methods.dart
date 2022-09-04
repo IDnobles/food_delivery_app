@@ -16,7 +16,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:food_delivery_app/models/User.dart';
+import 'package:food_delivery_app/models/Users.dart';
 
 class AuthMethods {
 
@@ -28,25 +28,29 @@ class AuthMethods {
   static final DatabaseReference _userReference = _database.reference().child("Users");
 
   // current user getter
-  Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser currentUser;
-    currentUser = await _auth.currentUser();
-    return currentUser;
+  Future<User> getCurrentUser() async {
+    User? fUser;
+    fUser = await _auth.currentUser;
+    return fUser!;
   }
 
   // gets auth state of user through out the life cycle of the app
-  Stream<FirebaseUser> get onAuthStateChanged {
-    return _auth.onAuthStateChanged;
+  Stream<User?> get onAuthStateChanged {
+    return _auth.authStateChanges();
   }
 
   //sign in current user with email and password
-  Future<FirebaseUser> handleSignInEmail(String email, String password) async {
-    final FirebaseUser user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+  Future<User> handleSignInEmail(String email, String password) async {
+
+    UserCredential result =
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+    final User user = result.user!;
 
     assert(user != null);
     assert(await user.getIdToken() != null);
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
+    final User? fUser = await _auth.currentUser;
+    assert(user.uid == fUser?.uid);
 
     print('signInEmail succeeded: $user');
 
@@ -54,9 +58,13 @@ class AuthMethods {
   }
 
   // register new user with phone email password details
-  Future<FirebaseUser> handleSignUp(phone, email, password) async {
-    final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
+  Future<User> handleSignUp(phone, email, password) async {
+
+    UserCredential result =
+    await _auth.createUserWithEmailAndPassword(email: email, password: password);
+
+    final User user = result.user!;
+
     assert (user != null);
     assert (await user.getIdToken() != null);
     await addDataToDb(user, email, phone, password);
@@ -64,10 +72,10 @@ class AuthMethods {
   }
 
   // after sign up, add user data to firebase realtime database
-  Future<void> addDataToDb(FirebaseUser currentUser, String username,
+  Future<void> addDataToDb(User currentUser, String username,
       String phone, String password) async {
     
-    User user = User(
+    Users user = Users(
         uid: currentUser.uid,
         email: currentUser.email,
         phone: phone,

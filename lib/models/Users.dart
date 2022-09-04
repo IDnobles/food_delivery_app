@@ -14,20 +14,20 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class User{
-  String uid;
-  String phone;
-  String email;
-  String password;
+class Users{
+  String? uid;
+  String? phone;
+  String? email;
+  String? password;
 
-  User({
+  Users({
     this.uid,
     this.email,
     this.password,
     this.phone
   });
 
-  Map toMap(User user) {
+  Map toMap(Users user) {
     var data = Map<String, dynamic>();
     data['uid'] = user.uid;
     data['email'] = user.email;
@@ -36,7 +36,7 @@ class User{
     return data;
   }
 
-  User.fromMap(Map<String, dynamic> mapData) {
+  Users.fromMap(Map<String, dynamic> mapData) {
     this.uid = mapData['uid'];
     this.email = mapData['email'];
     this.phone=mapData['phone'];

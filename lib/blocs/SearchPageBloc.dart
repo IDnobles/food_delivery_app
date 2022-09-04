@@ -32,10 +32,10 @@ class SearchPageBloc with ChangeNotifier {
      final List<Food> suggestionList = query.isEmpty
          ?searchedFoodList // show all foods
          :searchedFoodList.where((Food food) {
-           String _foodName= food.name.toLowerCase();
+           String? _foodName= food.name?.toLowerCase();
            String _query=query.toLowerCase();
 
-           bool isMatch=_foodName.contains(_query);
+           bool isMatch=_foodName!.contains(_query);
            return (isMatch);
           }).toList();
     return suggestionList;

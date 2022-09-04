@@ -16,12 +16,12 @@
 
 
 class Request{
-  String address;
-  Map foodList;
-  String name;
-  String uid;
-  String status;
-  String total;
+  String? address;
+  Map? foodList;
+  String? name;
+  String? uid;
+  String? status;
+  String? total;
 
   Request({
     this.address,

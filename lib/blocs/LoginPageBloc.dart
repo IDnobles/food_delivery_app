@@ -24,14 +24,14 @@ class LoginPageBloc with ChangeNotifier {
 
   bool isLoginPressed = false;
 
-  String validateEmail(String email) {
+  String? validateEmail(String email) {
     if (email.isEmpty && EmailValidator.validate(email)) {
       return 'Please enter valid email';
     }
     return null;
   } 
 
-  String validatePassword(String password) {
+  String? validatePassword(String password) {
     if (password.isEmpty && password.length<6) {
       return 'Password should atleast contain 6 character';
     }
@@ -41,7 +41,7 @@ class LoginPageBloc with ChangeNotifier {
   Future<void> validateFormAndLogin(GlobalKey<FormState> formKey, String userName, String password) async {
       isLoginPressed=true;
       notifyListeners();
-      if(formKey.currentState.validate()){
+      if(formKey.currentState!.validate()){
           await mAuthMethods.handleSignInEmail(userName, password);
           isLoginPressed=false;
           notifyListeners();
